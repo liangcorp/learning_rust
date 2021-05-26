@@ -1,15 +1,11 @@
 use std::io;
 
 fn find_vowel(c: &String) -> bool {
-    let result: bool;
-
     if c == "a" || c == "e" || c == "i" || c == "o" || c == "u" {
-        result = true;
+        true
     } else {
-        result = false;
+        false
     }
-
-    result
 }
 
 fn calculate(a: &i32, b: &i32, op: &String) -> i32{
