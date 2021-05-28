@@ -1,4 +1,6 @@
-use modules_assignment::Facebook;
+// extern crate Facebook;
+
+use modules_assignment::Facebook::*;
 use std::io;
 
 fn main() {
@@ -20,13 +22,13 @@ fn main() {
         password = password.trim().to_string();
 
 
-        if Facebook::Login::enter_login_detail(&username, &password) {
+        if Login::enter_login_detail(&username, &password) {
             println!("You've logged in successfully!");
             println!("Say something:");
             io::stdin().read_line(&mut content).expect("Failed");
 
-            Facebook::Post::post_content(content);
-            Facebook::Logout::logout();
+            Post::post_content(content);
+            Logout::logout();
             break;
         }
         else {
