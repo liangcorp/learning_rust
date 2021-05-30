@@ -1,21 +1,5 @@
-extern crate num;
-use num::Num;
-
-trait Addition {
-    fn add<T: Num>(&self, num1: T, num2: T) -> T;
-}
-
-struct Numbers <T: Num> {
-    x: T,
-    y: T,
-}
-
-impl <T: Num> Addition for Numbers <T> {
-    fn add<U: Num>(&self, num1: U, num2: U) -> U {
-        num1 + num2
-    }
-}
-
+use generics_assignment::Numbers;
+use generics_assignment::Addition;
 /*
 fn add<T: Num>(num1: T, num2: T) -> T {
     num1 + num2
