@@ -1,6 +1,6 @@
 use std::io;
 
-fn factorial (mut n: i32) -> i32 {
+fn factorial(mut n: i32) -> i32 {
     let mut facto: i32 = 1;
 
     while n != 0 {
@@ -12,7 +12,6 @@ fn factorial (mut n: i32) -> i32 {
 }
 
 fn main() {
-
     let mut number = String::new();
 
     println!("Enter a integer: ");
