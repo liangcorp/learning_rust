@@ -33,10 +33,10 @@ fn main() {
     match submit_doc(answer.to_string()) {
         Ok(s) => {
             println!("Document {}", s);
-        },
+        }
         Err(e) => {
             panic!("Document {}", e);
-        },
+        }
     };
 
     println!("Have you submitted your fees?");
@@ -53,9 +53,9 @@ fn main() {
     match paid_fee(answer.to_string()) {
         Ok(s) => {
             println!("Fee {}", s);
-        },
+        }
         Err(e) => {
             panic!("Fee {}", e);
-        },
+        }
     };
 }
