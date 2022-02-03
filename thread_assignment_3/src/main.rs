@@ -1,3 +1,6 @@
+use std::sync::mpsc;
+use std::thread;
+use std::time::Duration;
 /**
  *  Author: Chen Liang
  *  Description: Use thread to simulate the following:
@@ -7,12 +10,7 @@
  *  Date: 1st-Jun-2021
  */
 
-use std::thread;
-use std::sync::mpsc;
-use std::time::Duration;
-
 fn create_body(s: mpsc::Sender<&str>) {
-
     for i in 1..=10 {
         println!("Built body {}", i);
     }
@@ -21,7 +19,6 @@ fn create_body(s: mpsc::Sender<&str>) {
 }
 
 fn create_engin(s: mpsc::Sender<&str>) {
-
     for i in 1..=10 {
         println!("Built engin {}", i);
     }
