@@ -3,10 +3,10 @@
     $ Case_Insensitive=1 cargo run <search test> <filename>
 */
 
+use std::env;
+use std::error::Error;
 use std::fs::File;
 use std::io::prelude::*;
-use std::error::Error;
-use std::env;
 
 pub struct Config {
     pub query: String,
@@ -16,27 +16,25 @@ pub struct Config {
 
 impl Config {
     pub fn new(mut args: std::env::Args) -> Result<Config, &'static str> {
-
         args.next();
 
         let query = match args.next() {
             Some(arg) => arg,
-            None => return Err("Didn't get a query string")
+            None => return Err("Didn't get a query string"),
         };
 
         let filename = match args.next() {
             Some(arg) => arg,
-            None => return Err("Didn't get a file name")
+            None => return Err("Didn't get a file name"),
         };
 
         let case_sensitive = env::var("Case_Insensitive").is_err();
 
-        Ok(
-            Config {
-                query,
-                filename,
-                case_sensitive,
-            })
+        Ok(Config {
+            query,
+            filename,
+            case_sensitive,
+        })
     }
 }
 
@@ -55,25 +53,21 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
         println!("{}", line);
     }
 
-    Ok(())  // Calling for effects only. Returns nothing.
+    Ok(()) // Calling for effects only. Returns nothing.
 }
 
 pub fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-    contents.lines()
+    contents
+        .lines()
         .filter(|line| line.contains(query))
         .collect()
 }
 
 pub fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str> {
-
-    contents.lines()
-        .filter(
-            |line| line.to_lowercase().contains(
-                                        query.to_lowercase().as_str()
-                                        )
-        )
+    contents
+        .lines()
+        .filter(|line| line.to_lowercase().contains(query.to_lowercase().as_str()))
         .collect()
-
 }
 
 #[cfg(test)]
@@ -87,10 +81,9 @@ Rust
 safe,fast,productive.
 Pick Three
 Duct Tape";
-        assert_eq!{
+        assert_eq! {
             vec!["safe,fast,productive."], search(query, contents)
         };
-
     }
 
     #[test]
@@ -101,9 +94,8 @@ Rust
 safe,fast,productive.
 Pick Three
 Trust Me";
-        assert_eq!{
+        assert_eq! {
             vec!["Rust", "Trust Me"], search_case_insensitive(query, contents)
         };
-
     }
 }
