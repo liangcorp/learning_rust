@@ -16,8 +16,7 @@ struct Student {
 }
 
 impl Student {
-    fn create(name: String, math: u32, physics: u32, chemistry: u32)
-                                                          -> Student {
+    fn create(name: String, math: u32, physics: u32, chemistry: u32) -> Student {
         Student {
             name,
             math,
@@ -31,11 +30,9 @@ impl Student {
     fn highest_mark(&self) -> String {
         if self.math > self.physics && self.math > self.chemistry {
             String::from("math")
-        }
-        else if self.physics > self.math && self.physics > self.chemistry {
+        } else if self.physics > self.math && self.physics > self.chemistry {
             String::from("physics")
-        }
-        else {
+        } else {
             String::from("chemistry")
         }
     }
@@ -43,5 +40,9 @@ impl Student {
 
 fn main() {
     let bob = Student::create(String::from("Bob"), 78, 90, 67);
-    println!("Subject that has the highest mark for {} is {}", bob.name, bob.highest_mark());
+    println!(
+        "Subject that has the highest mark for {} is {}",
+        bob.name,
+        bob.highest_mark()
+    );
 }
