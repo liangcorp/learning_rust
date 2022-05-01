@@ -20,7 +20,7 @@ fn create_body(s: mpsc::Sender<&str>) {
 
 fn create_engin(s: mpsc::Sender<&str>) {
     for i in 1..=10 {
-        println!("Built engin {}", i);
+        println!("Built engine {}", i);
     }
     s.send("engin").unwrap();
     thread::sleep(Duration::from_millis(1));
