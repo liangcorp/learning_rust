@@ -17,7 +17,6 @@ fn search_contact(name: &String, contact: &HashMap<&String, &i32>) -> i32 {
 }
 
 fn main() {
-
     let mut name = Vec::new();
     let mut phone_no = Vec::new();
 
@@ -27,9 +26,7 @@ fn main() {
     phone_no.push(123456);
     phone_no.push(654321);
 
-    let contact: HashMap<_,_> =
-                        name.iter().zip(phone_no.iter()).collect();
-
+    let contact: HashMap<_, _> = name.iter().zip(phone_no.iter()).collect();
 
     let mut search_name = String::new();
 
