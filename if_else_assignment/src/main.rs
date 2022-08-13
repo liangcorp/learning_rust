@@ -1,17 +1,13 @@
 use std::io;
 
 fn find_vowel(c: &String) -> bool {
-    if c == "a" || c == "e" || c == "i" || c == "o" || c == "u" {
-        true
-    } else {
-        false
-    }
+    c == "a" || c == "e" || c == "i" || c == "o" || c == "u"
 }
 
-fn calculate(a: &i32, b: &i32, op: &String) -> i32{
+fn calculate(a: &i32, b: &i32, op: &String) -> i32 {
     if op == "+" {
         a + b
-    }  else if op == "-" {
+    } else if op == "-" {
         a - b
     } else if op == "*" {
         a * b
@@ -63,7 +59,6 @@ fn main() {
     let mut a = String::new();
     let mut b = String::new();
     let mut op = String::new();
-    let result: i32;
 
     println!("Enter two numbers:");
     io::stdin().read_line(&mut a).expect("Failed");
@@ -76,7 +71,7 @@ fn main() {
     let b: i32 = b.trim().parse().expect("Failed");
     op = op.trim().to_string();
 
-    result = calculate(&a, &b, &op);
+    let result: i32 = calculate(&a, &b, &op);
     println!("Result is {}", result);
 
     /*

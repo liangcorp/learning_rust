@@ -12,7 +12,7 @@ fn find_digits_in_no(mut n: i32) -> i32 {
     let mut count: i32 = 0;
 
     while n != 0 {
-        n = n / 10;
+        n /= 10;
         count += 1;
     }
 
@@ -20,13 +20,13 @@ fn find_digits_in_no(mut n: i32) -> i32 {
 }
 
 fn main() {
-    println!("Print even numbers from 1 to 100");
+    !("Print even numbers from 1 to 100");
     for n in 1..=100 {
         if is_even(&n) {
             print!("{} ", n);
         }
     }
-    println!("");
+    println!();
 
     let mut choice = String::new();
 
@@ -46,7 +46,5 @@ fn main() {
         }
     }
 
-    println!("Number of digits in 12345 is {}",
-                                find_digits_in_no(12345));
+    println!("Number of digits in 12345 is {}", find_digits_in_no(12345));
 }
-
