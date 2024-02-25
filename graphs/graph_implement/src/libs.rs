@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-#[direve(Debug)]
+#[derive(Debug)]
 pub struct NodeNotInGraph;
 
 pub struct DirectedGraph {
@@ -18,9 +18,10 @@ pub trait Graph {
     fn add_node(&mut self, node: &str) -> bool {
         match self.adjacency_matrix().get(node) {
             None => {
-                self.adjacency_matrix().insert((*node).to_string(), Vec::new());
+                self.adjacency_matrix()
+                    .insert((*node).to_string(), Vec::new());
                 true
-            },
+            }
             _ => false,
         }
     }
@@ -29,9 +30,9 @@ pub trait Graph {
         self.add_node(edge.0);
         self.add_node(edge.1);
 
-        self.adjacency_matrix().entry(edge.0.to_string()).add_modify(|e| {
-            e.push((edge.1.to_string(), edge.2))
-        });
+        self.adjacency_matrix()
+            .entry(edge.0.to_string())
+            .add_modify(|e| e.push((edge.1.to_string(), edge.2)));
     }
 
     fn neighbors(&mut self, node: &str) -> Result<&Vec<(String, i32)>, NodeNotInGraph> {
@@ -57,7 +58,7 @@ impl Graph for DirectedGraph {
 impl Graph for UndirectedGraph {
     fn new() -> UndirectedGraph {
         UndirectedGraph {
-        adjacency_matrix: HashMap::new(),
+            adjacency_matrix: HashMap::new(),
         }
     }
     fn adjacency_matrix(&mut self) -> &mut HashMap<String, Vec<(String, i32)>> {
@@ -68,12 +69,30 @@ impl Graph for UndirectedGraph {
         self.add_node(edge.0);
         self.add_node(edge.1);
 
-        self.adjacency_matrix.entry(edge.0.to_string()).and_modify(|e| {
-            e.push((edge.1.to_string(), edge.2))
-        });
+        self.adjacency_matrix
+            .entry(edge.0.to_string())
+            .and_modify(|e| e.push((edge.1.to_string(), edge.2)));
 
-        self.adjacency_matrix.entry(edge.1.to_string()).and_modify(|e| {
-            e.push((edge.0.to_string(), edge.2))
-        });
+        self.adjacency_matrix
+            .entry(edge.1.to_string())
+            .and_modify(|e| e.push((edge.0.to_string(), edge.2)));
+    }
+}
+
+#[cfg(test)]
+mod test_undirected_graph {
+    use super::*;
+
+    #[test]
+    fn test_neighbours() {
+        let mut graph = UndirectedGraph::new();
+        graph.add_edge(("a", "b", 5));
+        graph.add_edge(("b", "c", 10));
+        graph.add_edge(("c", "a", 7));
+
+        assert_eq!(
+            graph.neighbors("a").unwrapp(),
+            &vec![(String::from("b"), 5), (String::from("c"), 7)]
+        )
     }
 }
