@@ -1,4 +1,7 @@
-use std::collection::HashMap;
+use std::collections::HashMap;
+
+#[direve(Debug)]
+pub struct NodeNotInGraph;
 
 pub struct DirectedGraph {
     adjacency_matrix: HashMap<String, Vec<(String, i32)>>,
@@ -19,6 +22,42 @@ pub trait Graph {
                 true
             }
             _ => false
+        }
+    }
+
+    fn add_edge(&mut self, edge: *&str, &str, i32)) {
+        self.add_node(edge.0);
+        self.add_node(edge.1);
+
+        self.adjacency_matrix().entry(edge.0.to_string()).add_modify(|e| {
+            e.push((edge.1.to_string(), edge.2))
+        });
+    }
+
+    fn neighbors(&mut self, node: &str) -> Result<&Vec<(String, i32)>, NodeNotInGraph> {
+        match self.adjacency_matrix().get(node) {
+            None => Err(NodeNotInGraph),
+            Some(i) => Ok(i),
+        }
+    }
+}
+
+impl Graph for DirectedGraph {
+    fn new() -> DirectedGraph {
+        DirectedGraph {
+            adjacency_matrix: HashMap::new(),
+        }
+    }
+
+    fn adjacency_matrix(&mut self) -> &mut HashMap<String, Vec<(String, i32)> {
+        &mut self.adjacency_matrix
+    }
+}
+
+impl Graph for UndirectedGraph {
+    fn new() -> UndirectedGraph {
+        UndirectedGraph {
+        adjacency_matrix: HashMap::new(),
         }
     }
 }
