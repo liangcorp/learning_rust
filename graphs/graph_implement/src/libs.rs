@@ -91,8 +91,24 @@ mod test_undirected_graph {
         graph.add_edge(("c", "a", 7));
 
         assert_eq!(
-            graph.neighbors("a").unwrapp(),
+            graph.neighbors("a").unwrap(),
             &vec![(String::from("b"), 5), (String::from("c"), 7)]
         )
+    }
+
+    #[test]
+    fn test_directed() {
+        let mut graph = DirectedGraph::new();
+        graph.add_edge(("a", "b", 5));
+        graph.add_edge(("b", "c", 10));
+        graph.add_edge(("c", "a", 7));
+        graph.add_edge(("b", "a", 5));
+
+        assert_eq!(graph.neighbors("a").unwrap(), &vec![(String::from("b"), 5)]);
+
+        assert_eq!(
+            graph.neighbors("b").unwrap(),
+            &vec![(String::from("c"), 10), (String::from("a"), 5)]
+        );
     }
 }
